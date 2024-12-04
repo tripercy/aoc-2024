@@ -15,17 +15,21 @@ func partOne(input []string) {
 
 	for r := range len(input) {
 		for c := range len(input[r]) {
+			if input[r][c] != 'X' {
+				continue
+			}
+
 			for d := range 8 {
-				s := ""
-				for i := range 4 {
+				flag := true
+				for i, ch := range "XMAS" {
 					nr := r + dr[d]*i
 					nc := c + dc[d]*i
-					if nr < 0 || nc < 0 || nr >= len(input) || nc >= len(input[r]) {
+					if nr < 0 || nc < 0 || nr >= len(input) || nc >= len(input[r]) || input[nr][nc] != byte(ch) {
+						flag = false
 						break
 					}
-					s += string(input[nr][nc])
 				}
-				if s == "XMAS" {
+				if flag {
 					res++
 				}
 			}
